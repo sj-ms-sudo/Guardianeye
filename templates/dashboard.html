@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Security Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .container {
+      width: 90%;
+      margin: 20px auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #2c3e50;
+      color: white;
+    }
+    .metrics {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .metric-box {
+      flex: 1;
+      background: #3498db;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      min-width: 150px;
+    }
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Security Log Analyzer Dashboard</h1>
+  </header>
+  
+  <div class="container">
+    <div class="metrics">
+      <div class="metric-box">
+        <h2>{{ total_alerts }}</h2>
+        <p>Total Alerts</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Top Attacker IPs</h2>
+      <ul>
+        {% for ip, count in top_ips.items() %}
+          <li><b>{{ ip }}</b>: {{ count }} attempts</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Reasons</h2>
+      <ul>
+        {% for reason, count in reasons.items() %}
+          <li><b>{{ reason }}</b>: {{ count }} times</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Suspicious Activity Log</h2>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>IP</th>
+          <th>Timestamp</th>
+          <th>Reason</th>
+        </tr>
+        {% for row in tables %}
+        <tr>
+          <td>{{ row['id'] }}</td>
+          <td>{{ row['ip'] }}</td>
+          <td>{{ row['timestamp'] }}</td>
+          <td>{{ row['reason'] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</body>
+</html>
