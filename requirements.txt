@@ -1,0 +1,7 @@
+Flask
+watchdog
+plyer
+requests
+pandas
+python-dotenv
+werkzeug
